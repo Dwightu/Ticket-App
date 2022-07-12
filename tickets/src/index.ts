@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-
+import { natsWrapper } from './routes/nats-wrapper';
 
 import { app } from './app'
 
@@ -11,6 +11,7 @@ const start = async () => {
     throw new Error('MONGO_URI is not found')
   }
   try {
+    await natsWrapper.connect('ticketing', 'lasdsa', 'http://nats-srv:4222');
     await mongoose.connect(process.env.MONGO_URI, {})
     console.log('Conncted to MongoDB successfully!!')
   } catch (err) {
